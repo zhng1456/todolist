@@ -28,7 +28,7 @@ def add_msg(request):
     if request.method == 'POST':
         msg = JSONParser().parse(request)
         serializer = ThingSerializer(data=msg)
-        # print serializer.is_valid()
+        print serializer.is_valid()
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return JsonResponse(serializer.data, status=201)
