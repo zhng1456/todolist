@@ -23,7 +23,7 @@
 <!--<button>click</button>-->
 <div id="example"></div>
 <script type="text/babel">
-//输入框
+//可编辑的区域，包括输入框，与选择框
   class Edit extends React.Component {
     constructor(props) {
       super(props);
@@ -47,7 +47,9 @@
       if(!task){
         return ;
       }
+      //调用taskAdd后台添加
       this.props.taskAdd(task);
+      //输入框置空
       this.setState({
         value: "",
       })
@@ -57,6 +59,13 @@
       return (
         <div>
           <input ref="textInput" className="form-control" type="text" value={this.state.value} onChange={this.handleChange} placeholder="input please"/>
+          <div className="text-left">
+            <select class="form-control">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+		    </select>
+          </div>
           <div className="text-right">
             <button className="btn btn-success" onClick={this.submit}>commit</button>
           </div>
