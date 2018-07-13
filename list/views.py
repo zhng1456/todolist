@@ -55,4 +55,12 @@ def edit_msg(request, pk):
         )
         return JsonResponse(msg, safe=False)
     return HttpResponse(status=404)
+# 排序
+def get_msg_order(request):
+    if request.method == 'GET':
+        #按照优先级排序，从大到小
+        question = Thing.objects.all().order_by('-priority')
+        serializer = ThingSerializer(question, many=True)
+        return JsonResponse(serializer.data, safe=False, status=201)
+    return HttpResponse(status=404)
 
