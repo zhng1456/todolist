@@ -6,7 +6,8 @@ from models import Thing
 from django.views.decorators.csrf import csrf_exempt
 from serializers import ThingSerializer
 from rest_framework.parsers import JSONParser
-
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.views import APIView
 #主页查询出所有的task
 def index(request):
     data = Thing.objects.all()
@@ -63,4 +64,15 @@ def get_msg_order(request):
         serializer = ThingSerializer(question, many=True)
         return JsonResponse(serializer.data, safe=False, status=201)
     return HttpResponse(status=404)
+#分页
+class PageView(APIView):
+    def get(self,request,*args,**kwargs):
+        # 获取所有数据
+        question = Thing.objects.all()
+        # 创建分页对象
+        pg = PageNumberPagination()
+        page_question = pg.paginate_queryset(queryset=question, request=request)
+        # 序列化
+        serializer = ThingSerializer(instance=page_question, many=True)
+        return JsonResponse(serializer.data, safe=False, status=201)
 
