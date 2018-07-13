@@ -43,7 +43,7 @@
     submit(e) {
       e.preventDefault();
       let task = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
-
+      let priority=ReactDOM.findDOMNode(this.refs.prioritySelect).value.trim();
       if(!task){
         return ;
       }
@@ -60,10 +60,11 @@
         <div>
           <input ref="textInput" className="form-control" type="text" value={this.state.value} onChange={this.handleChange} placeholder="input please"/>
           <div className="text-left">
-            <select class="form-control">
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
+            <label for="name">优先级</label>
+            <select class="form-control" ref="prioritySelect">
+			<option value="1">正常</option>
+			<option value="2">重要</option>
+			<option value="3">紧急</option>
 		    </select>
           </div>
           <div className="text-right">
