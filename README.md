@@ -1,2 +1,2 @@
-# todoList Django+Django restfulframework+react
+# todoList Django+Django restframework+react
 
