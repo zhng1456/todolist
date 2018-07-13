@@ -13,7 +13,7 @@
     <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
     <style>
       ul li {
-          height: 50px;
+          height: 100px;
       }
     </style>
 </head>
@@ -116,6 +116,10 @@
           <div>
             <input type="checkbox" className="pull-left" checked={itemChecked} onChange={this.toggleChange} />
             {task}
+            <div className="text-left">
+            <label for="name">优先级</label>
+            {this.props.priority}
+          </div>
             <button className="btn btn-danger pull-right" onClick={this.deleteTask}>delete</button>
           </div>
         </li>
@@ -133,6 +137,7 @@
                 task={listItem.task}
                 taskId={listItem.id}
                 complete={listItem.complete}
+                priority={listItem.priority}
                 deleteTask={this.props.deleteTask}
                 toggleComplete={this.props.toggleComplete}
                 taskChange={this.props.taskChange}/>
