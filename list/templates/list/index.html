@@ -48,7 +48,7 @@
         return ;
       }
       //调用taskAdd后台添加
-      this.props.taskAdd(task);
+      this.props.taskAdd(task,priority);
       //输入框置空
       this.setState({
         value: "",
@@ -175,12 +175,13 @@
       return id;
     }
 //添加一个任务
-    taskAdd(taskTemp) {
+    taskAdd(taskTemp,priority) {
       let dataTemp = {};
       dataTemp['id'] = this.getId();
       dataTemp['task'] = taskTemp;
       dataTemp['complete'] = false;//默认的complete标志位为0
-      axios.post('/list/api/add-msg', dataTemp).then(
+      dataTemp['priority']=parseInt(priority);//设置对应的优先级
+      axios.post('/list/api/add-msg/', dataTemp).then(
         res => {
           this.setState({
             data: this.state.data.concat(res.data),
