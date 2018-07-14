@@ -74,7 +74,22 @@
       )
     }
   }
-
+  class SortSelect extends React.Component{
+    constructor(props) {
+      super(props);
+    }
+    render() {
+      return (
+      <div className="text-left">
+        <label for="name">sorted by</label>
+        <select class="form-control" ref="sortRule">
+        <option value="1">id</option>
+        <option value="2">priority</option>
+        </select>
+      </div>
+      )
+    }
+  }
   class ListItem extends React.Component {
     constructor(props){
       super(props);
@@ -257,6 +272,7 @@
           <Edit
             taskAdd={this.taskAdd} />
           <hr/>
+          <SortSelect />
           <List
             data={this.state.data}
             deleteTask={this.taskRemove}
