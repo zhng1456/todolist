@@ -14,26 +14,22 @@ def index(request):
     return render(request, 'list/index.html', {'data': data})
 
 # Create your views here.
-
-
-def get_msg(request):
-    if request.method == 'GET':
+class MsgList(APIView):
+    #获取所有的todo，或者创建一个新的todo
+    def get(self, request, format=None):
         question = Thing.objects.all()
         serializer = ThingSerializer(question, many=True)
         return JsonResponse(serializer.data, safe=False, status=201)
-    return HttpResponse(status=404)
 
-
-@csrf_exempt
-def add_msg(request):
-    if request.method == 'POST':
+    @csrf_exempt
+    def post(self, request, format=None):
         msg = JSONParser().parse(request)
         serializer = ThingSerializer(data=msg)
         print serializer.is_valid()
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return JsonResponse(serializer.data, status=201)
-    return HttpResponse(status=400)
+        return HttpResponse(status=400)
 
 
 def del_msg(request, pk):

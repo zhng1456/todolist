@@ -162,7 +162,7 @@
     }
 
     init() {
-      axios.get('/list/api/get-msg').then(
+      axios.get('/list/api/msg/').then(
         res => {
           this.setState({
             data: res.data,
@@ -186,7 +186,7 @@
       dataTemp['task'] = taskTemp;
       dataTemp['complete'] = false;//默认的complete标志位为0
       dataTemp['priority']=parseInt(priority);//设置对应的优先级
-      axios.post('/list/api/add-msg/', dataTemp).then(
+      axios.post('/list/api/msg/', dataTemp).then(
         res => {
           this.setState({
             data: this.state.data.concat(res.data),
