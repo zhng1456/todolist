@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for todolist project.
 
@@ -70,7 +71,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'todolist.wsgi.application'
-
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    #分页
+    "PAGE_SIZE": 2   #每页显示多少个
+}
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
