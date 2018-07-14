@@ -74,17 +74,23 @@
       )
     }
   }
+  //排序方法的下拉列表
   class SortSelect extends React.Component{
     constructor(props) {
       super(props);
+      this.taskSort = this.taskSort.
+      bind(this);
+    }
+    taskSort(e) {
+      this.props.taskSort(e.target.value);
     }
     render() {
       return (
       <div className="text-left">
         <label for="name">sorted by</label>
-        <select class="form-control" ref="sortRule">
-        <option value="1">id</option>
-        <option value="2">priority</option>
+        <select class="form-control" ref="sortRule" onChange={this.taskSort}>
+        <option value="0" selected="selected">id</option>
+        <option value="1">priority</option>
         </select>
       </div>
       )
@@ -100,6 +106,7 @@
     }
 
     deleteTask() {
+      console.log(this.props);
       this.props.deleteTask(this.props.taskId);
     }
 
@@ -174,6 +181,8 @@
       this.taskRemove = this.taskRemove.bind(this);
       this.taskToggleComplete = this.taskToggleComplete.bind(this);
       this.taskChange = this.taskChange.bind(this);
+      //新增的taskSort
+      this.taskSort = this.taskSort.bind(this);
     }
 
     init() {
@@ -185,7 +194,16 @@
         }
       );
     }
-
+    taskSort(flag) {
+      console.log('sort rules: '+flag)
+      axios.get('/list/api/msg-order/'+flag).then(
+        res => {
+          this.setState({
+            data: res.data,
+          });
+        }
+      );
+    }
     getId() {
       let id=0;
       let dataTemp = this.state.data;
@@ -272,7 +290,7 @@
           <Edit
             taskAdd={this.taskAdd} />
           <hr/>
-          <SortSelect />
+          <SortSelect taskSort={this.taskSort}/>
           <List
             data={this.state.data}
             deleteTask={this.taskRemove}

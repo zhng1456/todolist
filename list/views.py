@@ -49,10 +49,12 @@ class MsgDetail(APIView):
         )
         return JsonResponse(msg, safe=False)
 # 排序
-def get_msg_order(request):
+def get_msg_order(request,flag):
     if request.method == 'GET':
-        #按照优先级排序，从大到小
-        question = Thing.objects.all().order_by('-priority')
+        # 默认的是按照id排序
+        # 按照优先级排序，从大到小
+        sort_fields = {'0': 'id', '1': '-priority'}
+        question = Thing.objects.all().order_by(sort_fields[flag])
         serializer = ThingSerializer(question, many=True)
         return JsonResponse(serializer.data, safe=False, status=201)
     return HttpResponse(status=404)
