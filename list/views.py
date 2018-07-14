@@ -31,17 +31,14 @@ class MsgList(APIView):
             return JsonResponse(serializer.data, status=201)
         return HttpResponse(status=400)
 
-
-def del_msg(request, pk):
-    if request.method == 'GET':
+class MsgDetail(APIView):
+    #对todo的修改和删除
+    def delete(self, request, pk, format=None):
         Thing.objects.filter(id=pk).delete()
         return JsonResponse({'complete': True}, safe=False)
-    return HttpResponse(status=404)
 
-
-@csrf_exempt
-def edit_msg(request, pk):
-    if request.method == 'POST':
+    @csrf_exempt
+    def put(self, request, pk, format=None):
         msg = JSONParser().parse(request)
         item = Thing.objects.filter(id=pk)
         item.update(
@@ -51,7 +48,6 @@ def edit_msg(request, pk):
             # complete=msg['complete'],
         )
         return JsonResponse(msg, safe=False)
-    return HttpResponse(status=404)
 # 排序
 def get_msg_order(request):
     if request.method == 'GET':

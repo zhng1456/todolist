@@ -196,7 +196,7 @@
     }
 
     taskRemove(taskId) {
-       axios.get('/list/api/del-msg/' + taskId).then(
+       axios.delete('/list/api/msg/' + taskId).then(
         res => {
           if(res.data['complete']) {
             let dataTemp = this.state.data;
@@ -226,7 +226,7 @@
       this.setState({
         data: dataTemp,
       });
-      axios.post('/list/api/edit-msg/' + taskId, item).then(
+      axios.put('/list/api/msg/' + taskId, item).then(
         res => {}
       );
     }
@@ -246,7 +246,7 @@
         'task': task,
       };
       console.log(task);
-      axios.post('/list/api/edit-msg/' + id, item).then(
+      axios.put('/list/api/msg/' + id, item).then(
         res => {}
       );
     }
